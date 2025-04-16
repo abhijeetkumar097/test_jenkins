@@ -1,26 +1,17 @@
 pipeline {
     agent any
-
-    environment {
-        gitUrl = 'https://github.com/abhijeetkumar097/test_jenkins.git'
-    }
-
+    
     stages {
-        stage("Git Clone") {
-            steps {
-                git branch: 'main', url: "${gitUrl}"
-            }
-        }
-
+        
         stage('Build') {
             steps {
-                sh "docker compose build --no-cache"
+                sh 'docker build -t my_image_name .'
             }
         }
 
         stage('Run') {
             steps {
-                sh "docker compose up -d"
+                sh 'docker run -d -p 3000:3000 my_image_name'
             }
         }
 
@@ -39,7 +30,7 @@ pipeline {
     post {
         always {
             echo "Shutting down"
-            sh "docker compose down"
+            sh 'docker ps -q | xargs -r docker stop && docker rm $(docker ps -a -q)'
         }
         success {
             echo "Success"
