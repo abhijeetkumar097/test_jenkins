@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     environment {
-        URL = 'https://github.com/abhijeetkumar097/test_jenkins.git'
+        gitUrl = 'https://github.com/abhijeetkumar097/test_jenkins.git'
     }
 
     stages {
         stage("Git Clone") {
             steps {
-                git branch: 'dev', url: "${URL}"
+                git branch: 'dev', url: "${gitUrl}"
             }
         }
 
