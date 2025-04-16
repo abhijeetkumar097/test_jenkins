@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage("Git Clone") {
             steps {
-                git branch: 'dev', url: "${gitUrl}"
+                git branch: 'main', url: "${gitUrl}"
             }
         }
 
